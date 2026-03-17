@@ -788,13 +788,16 @@ document.querySelectorAll('a,button,.ev-card,.exp-c,.cl-chip,.stop').forEach(el=
   el.addEventListener('mouseleave',()=>cur.classList.remove('hov'));
 });
 
-// Intro canvas - waves from BOTH sides, center clear
+// Intro canvas
 (function(){
   const c=document.getElementById('intro-canvas');
   if(!c)return;
   const ctx=c.getContext('2d');
   let W,H,t=0;
-  function resize(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;}
+  function resize(){
+    W=c.width=window.innerWidth;
+    H=c.height=window.innerHeight;
+  }
   resize();window.addEventListener('resize',resize);
   function draw(){
     ctx.clearRect(0,0,W,H);
@@ -844,13 +847,16 @@ document.querySelectorAll('a,button,.ev-card,.exp-c,.cl-chip,.stop').forEach(el=
   requestAnimationFrame(draw);
 })();
 
-// Hero canvas - waves sweep in from RIGHT, left stays clear for text
+// Hero canvas
 (function(){
   const c=document.getElementById('hero-canvas');
   if(!c)return;
   const ctx=c.getContext('2d');
   let W,H,t=0;
-  function resize(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;}
+  function resize(){
+    W=c.width=window.innerWidth;
+    H=c.height=window.innerHeight;
+  }
   resize();window.addEventListener('resize',resize);
   function draw(){
     ctx.clearRect(0,0,W,H);
@@ -896,7 +902,10 @@ document.querySelectorAll('a,button,.ev-card,.exp-c,.cl-chip,.stop').forEach(el=
   if(!c)return;
   const ctx=c.getContext('2d');
   let W,H,t=0,particles=[];
-  function resize(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;}
+  function resize(){
+    W=c.width=window.innerWidth;
+    H=c.height=c.parentElement.offsetHeight||window.innerHeight;
+  }
   resize();window.addEventListener('resize',resize);
   // spawn particles
   function spawn(){particles.push({x:Math.random()*W,y:H+10,vx:(Math.random()-0.5)*0.3,vy:-(Math.random()*0.6+0.2),life:1,decay:Math.random()*0.002+0.001,r:Math.random()*2+0.5,hue:250+Math.random()*40});}

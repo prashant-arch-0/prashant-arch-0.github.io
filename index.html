@@ -364,16 +364,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.2rem 4vw;display:f
 }
 
 /* HERO */
-#hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
+#hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
-.hero-inner{position:relative;z-index:2;padding:clamp(6rem,12vw,12rem) 4vw 4rem;max-width:900px;width:100%}
+.hero-inner{position:relative;z-index:2;padding:clamp(6rem,12vw,12rem) 4vw 4rem;max-width:800px;width:100%;text-align:center;margin:0 auto}
 .hero-dot{width:10px;height:10px;background:var(--pu);border-radius:50%;display:inline-block;margin-right:0.8rem;box-shadow:0 0 12px var(--pu);animation:dotPulse 2s ease infinite}
 @keyframes dotPulse{0%,100%{box-shadow:0 0 8px var(--pu)}50%{box-shadow:0 0 20px var(--pu),0 0 40px rgba(139,92,246,0.4)}}
-.hero-pre{display:flex;align-items:center;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;opacity:0;animation:fu 1s ease 0.3s forwards}
-.hero-name{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,8vw,7rem);font-weight:700;line-height:0.9;color:var(--text);margin-bottom:1.2rem;opacity:0;animation:fu 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s forwards}
-.hero-name em{color:var(--pu2);font-style:italic;display:block}
-.hero-sub{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--pu);margin-bottom:2rem;opacity:0;animation:fu 1s ease 0.8s forwards}
-.hero-body{font-size:0.92rem;line-height:2;color:var(--muted);max-width:480px;opacity:0;animation:fu 1s ease 1s forwards}
+.hero-pre{display:flex;align-items:center;justify-content:center;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;opacity:0;animation:fu 1s ease 0.3s forwards}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,8vw,7rem);font-weight:700;line-height:0.9;color:var(--text);margin-bottom:1.2rem;opacity:0;animation:fu 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;text-align:center}
+.hero-name em{color:var(--pu2);font-style:italic;display:block;text-align:center}
+.hero-sub{font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--pu);margin-bottom:2rem;opacity:0;animation:fu 1s ease 0.8s forwards;text-align:center}
+.hero-body{font-size:0.92rem;line-height:2;color:var(--muted);max-width:520px;margin:0 auto;opacity:0;animation:fu 1s ease 1s forwards;text-align:center}
 .hero-scroll{position:absolute;bottom:3vh;right:4vw;display:flex;flex-direction:column;align-items:center;gap:0.5rem;z-index:3;opacity:0;animation:fu 1s ease 1.6s forwards}
 .hero-scroll-txt{font-size:0.5rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--dim);writing-mode:vertical-rl}
 .hero-scroll-ln{width:1px;height:50px;background:linear-gradient(to bottom,var(--pu),transparent);animation:sp 2s ease infinite}

@@ -23,7 +23,7 @@
   --dim:#5A5A7A;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;overflow-y:hidden;cursor:none}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
 ::-webkit-scrollbar{width:2px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--pu)}
@@ -338,10 +338,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.2rem 4vw;display:f
 .nlinks a:hover{color:var(--pu2)}
 .nlinks a:hover::after{width:100%}
 
+/* HAMBURGER */
+#hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:600;padding:4px;background:none;border:none}
+#hamburger span{display:block;width:24px;height:2px;background:var(--pu2);border-radius:2px;transition:all 0.35s cubic-bezier(0.77,0,0.175,1)}
+#hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+#hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+#hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* MOBILE MENU */
+#mobile-menu{position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:rgba(13,13,26,0.98);z-index:550;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;visibility:hidden;transition:opacity 0.4s ease,visibility 0.4s ease;overflow:hidden;box-sizing:border-box}
+#mobile-menu.open{opacity:1;visibility:visible}
+#mobile-menu a{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:var(--text);text-decoration:none;letter-spacing:0.05em;opacity:0;transform:translateY(20px);transition:opacity 0.4s ease,transform 0.4s ease,color 0.3s;text-align:center;display:block;width:100%;padding:0.3rem 0}
+#mobile-menu.open a{opacity:1;transform:translateY(0)}
+#mobile-menu.open a:nth-child(1){transition-delay:0.1s}
+#mobile-menu.open a:nth-child(2){transition-delay:0.15s}
+#mobile-menu.open a:nth-child(3){transition-delay:0.2s}
+#mobile-menu.open a:nth-child(4){transition-delay:0.25s}
+#mobile-menu.open a:nth-child(5){transition-delay:0.3s}
+#mobile-menu a:hover{color:var(--pu2)}
+.mm-line{width:30px;height:1px;background:rgba(139,92,246,0.25);margin:0 auto}
+
+@media(max-width:900px){
+  .nlinks{display:none}
+  #hamburger{display:flex}
+}
+
 /* HERO */
 #hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
-.hero-inner{position:relative;z-index:2;padding:12rem 4vw 6rem;max-width:900px;width:100%}
+.hero-inner{position:relative;z-index:2;padding:clamp(6rem,12vw,12rem) 4vw 4rem;max-width:900px;width:100%}
 .hero-dot{width:10px;height:10px;background:var(--pu);border-radius:50%;display:inline-block;margin-right:0.8rem;box-shadow:0 0 12px var(--pu);animation:dotPulse 2s ease infinite}
 @keyframes dotPulse{0%,100%{box-shadow:0 0 8px var(--pu)}50%{box-shadow:0 0 20px var(--pu),0 0 40px rgba(139,92,246,0.4)}}
 .hero-pre{display:flex;align-items:center;font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;opacity:0;animation:fu 1s ease 0.3s forwards}
@@ -563,7 +588,26 @@ footer{background:var(--bg2);padding:2rem 4vw;display:flex;justify-content:space
     <a href="#clients">Clients</a>
     <a href="#contact">Contact</a>
   </div>
+  <button id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <button onclick="toggleMenu()" style="position:fixed;top:1.2rem;right:4vw;background:none;border:none;cursor:pointer;width:44px;height:44px;display:flex;align-items:center;justify-content:center;z-index:600">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><line x1="2" y1="2" x2="20" y2="20" stroke="#A78BFA" stroke-width="2" stroke-linecap="round"/><line x1="20" y1="2" x2="2" y2="20" stroke="#A78BFA" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <a href="javascript:void(0)" onclick="menuGo('journey')">Journey</a>
+  <div class="mm-line"></div>
+  <a href="javascript:void(0)" onclick="menuGo('events')">Events</a>
+  <div class="mm-line"></div>
+  <a href="javascript:void(0)" onclick="menuGo('expertise')">Expertise</a>
+  <div class="mm-line"></div>
+  <a href="javascript:void(0)" onclick="menuGo('clients')">Clients</a>
+  <div class="mm-line"></div>
+  <a href="javascript:void(0)" onclick="menuGo('contact')">Contact</a>
+</div>
 
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
@@ -592,7 +636,7 @@ footer{background:var(--bg2);padding:2rem 4vw;display:flex;justify-content:space
     <div class="road-line" id="road-line-el"></div>
     <div class="stops">
 
-      <div class="stop"><div class="stop-node"><div class="stop-circle">🎓</div></div><div class="stop-card"><span class="stop-date">2020 — 2023 · Chennai</span><h3 class="stop-role">BHM Student</h3><p class="stop-org">IHM Chennai — NCHMCT / Jaipuria</p><p class="stop-body">The road begins. Stepped into the world of hospitality at one of India's finest institutions — building a deep foundation in F&B, front office and event management while hunger for real events grew every day.</p><div class="stop-tags"><span>IHM Chennai</span><span>BHM</span><span>Hospitality</span><span>F&B</span></div></div></div>
+      <div class="stop"><div class="stop-node"><div class="stop-circle">🎓</div></div><div class="stop-card"><span class="stop-date">2020 — 2023 · Chennai</span><h3 class="stop-role">BHM Student</h3><p class="stop-org">IHM Chennai — NCHMCT</p><p class="stop-body">The road begins. Stepped into the world of hospitality at one of India's finest institutions — building a deep foundation in F&B, front office and event management while hunger for real events grew every day.</p><div class="stop-tags"><span>IHM Chennai</span><span>BHM</span><span>Hospitality</span><span>F&B</span></div></div></div>
 
       <div class="stop"><div class="stop-node"><div class="stop-circle prestige">💒</div></div><div class="stop-card prestige-card"><span class="stop-badge">First Milestone</span><span class="stop-date">2021 · First Event Ever</span><h3 class="stop-role">Event Volunteer — Wedding</h3><p class="stop-org">Jaipuria Events · Chennai</p><p class="stop-body">The first stop. A wedding in Chennai — the spark that lit everything. Guest coordination, F&B service, on-ground hospitality. The moment the obsession became real.</p><div class="stop-tags"><span class="hi">First Event</span><span>Wedding</span><span>Jaipuria</span></div></div></div>
 
@@ -604,13 +648,13 @@ footer{background:var(--bg2);padding:2rem 4vw;display:flex;justify-content:space
 
       <div class="stop"><div class="stop-node"><div class="stop-circle prestige">🌐</div></div><div class="stop-card prestige-card"><span class="stop-badge">Diplomatic Milestone</span><span class="stop-date">24–25 March 2023 · G20 India</span><h3 class="stop-role">Technical Team — EMC</h3><p class="stop-org">G20 India Presidency · 2nd FWG Meeting · Chennai</p><p class="stop-body">The highest stage so far. Selected for the EMC Technical Team at the G20 India Presidency — "Vasudhaiva Kutumbakam: One Earth, One Family, One Future."</p><div class="stop-tags"><span class="hi">G20 India</span><span class="hi">EMC Technical</span><span>Diplomatic</span></div></div></div>
 
-      <div class="stop"><div class="stop-node"><div class="stop-circle prestige">🎓</div></div><div class="stop-card prestige-card"><span class="stop-badge">Achievement Unlocked</span><span class="stop-date">April 2023</span><h3 class="stop-role">BHM Graduated</h3><p class="stop-org">IHM Chennai · NCHMCT / Jaipuria</p><p class="stop-body">The academic road ends — the professional one accelerates. Graduated with Hospitality Management, Catering Technology & Applied Nutrition, with 2+ years of live event experience already behind.</p><div class="stop-tags"><span class="hi">BHM 2023</span><span>Graduated</span></div></div></div>
+      <div class="stop"><div class="stop-node"><div class="stop-circle prestige">🎓</div></div><div class="stop-card prestige-card"><span class="stop-badge">Achievement Unlocked</span><span class="stop-date">April 2023</span><h3 class="stop-role">BHM Graduated</h3><p class="stop-org">IHM Chennai · NCHMCT</p><p class="stop-body">The academic road ends — the professional one accelerates. Graduated with Hospitality Management, Catering Technology & Applied Nutrition, with 2+ years of live event experience already behind.</p><div class="stop-tags"><span class="hi">BHM 2023</span><span>Graduated</span></div></div></div>
 
-      <div class="stop"><div class="stop-node"><div class="stop-circle">🍔</div></div><div class="stop-card"><span class="stop-date">Aug 2023 — Mar 2024</span><h3 class="stop-role">Management Trainee</h3><p class="stop-org">McDonald's India</p><p class="stop-body">A detour that sharpened the drive. Structured operations and team leadership in a high-volume environment — skills that directly power event execution.</p><div class="stop-tags"><span>Management Trainee</span><span>Operations</span><span>Team Leadership</span></div></div></div>
+      <div class="stop"><div class="stop-node"><div class="stop-circle">🍔</div></div><div class="stop-card"><span class="stop-date">Aug 2023 — Mar 2024</span><h3 class="stop-role">Management Trainee</h3><p class="stop-org">McDonald's India · Chennai</p><p class="stop-body">A detour that sharpened the drive. Structured operations and team leadership in a high-volume environment — skills that directly power event execution.</p><div class="stop-tags"><span>Management Trainee</span><span>Operations</span><span>Team Leadership</span></div></div></div>
 
       <div class="stop"><div class="stop-node"><div class="stop-circle prestige">🎤</div></div><div class="stop-card prestige-card"><span class="stop-badge">Live Entertainment</span><span class="stop-date">26 November 2023</span><h3 class="stop-role">Event Coordinator — Live Concert</h3><p class="stop-org">GTA Events · Neel Nitin Mukesh Live Show</p><p class="stop-body">Back on the road and backstage. Coordinated the live concert of Bollywood legend Neel Nitin Mukesh — artist hospitality, stage logistics, guest management.</p><div class="stop-tags"><span class="hi">Live Concert</span><span class="hi">Artist Hospitality</span><span>GTA Events</span></div></div></div>
 
-      <div class="stop"><div class="stop-node"><div class="stop-circle">🏙️</div></div><div class="stop-card"><span class="stop-date">Apr 2024 — Feb 2025</span><h3 class="stop-role">Community Manager — Ground Operations</h3><p class="stop-org">CoLive · Co-living Platform</p><p class="stop-body">Never stopped producing. Open Mic nights, Music Nights, New Year parties — every event planned, produced and delivered solo.</p><div class="stop-tags"><span>Community Events</span><span>Open Mic</span><span>Music Night</span><span>NYE Party</span></div></div></div>
+      <div class="stop"><div class="stop-node"><div class="stop-circle">🏙️</div></div><div class="stop-card"><span class="stop-date">Apr 2024 — Feb 2025</span><h3 class="stop-role">Community Manager — Ground Operations</h3><p class="stop-org">CoLive · Co-living Platform · Bangalore</p><p class="stop-body">Never stopped producing. Open Mic nights, Music Nights, New Year parties — every event planned, produced and delivered solo.</p><div class="stop-tags"><span>Community Events</span><span>Open Mic</span><span>Music Night</span><span>NYE Party</span></div></div></div>
 
       <div class="stop"><div class="stop-node"><div class="stop-circle now-circle">✦</div></div><div class="stop-card now-card"><span class="stop-badge glow">Available Now</span><span class="stop-date">2025 — Present · The Destination</span><h3 class="stop-role">Full-Time Freelance Event Coordinator</h3><p class="stop-org">Pan-India · Delhi NCR · Open for Everything</p><p class="stop-body">The road led here. Event management and experiential hospitality is where the passion truly lives. That time was not wasted — it was the journey. Now fully focused and ready to build something extraordinary.</p><div class="stop-tags"><span class="hi">Available Now</span><span class="hi">Full-Time</span><span class="hi">Freelance</span><span class="hi">Pan-India</span></div></div></div>
 
@@ -887,7 +931,24 @@ document.querySelectorAll('a,button,.ev-card,.exp-c,.cl-chip,.stop').forEach(el=
   requestAnimationFrame(draw);
 })();
 
+// Mobile menu
+function menuGo(id){
+  toggleMenu();
+  setTimeout(()=>{
+    const el=document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  },400);
+}
+function toggleMenu(){
+  const hb = document.getElementById('hamburger');
+  const mm = document.getElementById('mobile-menu');
+  hb.classList.toggle('open');
+  mm.classList.toggle('open');
+  document.body.style.overflow = mm.classList.contains('open') ? 'hidden' : 'auto';
+}
+
 // Scroll reveal
+
 const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible');});},{threshold:0.12,rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.reveal,.stop').forEach(el=>obs.observe(el));
 </script>
